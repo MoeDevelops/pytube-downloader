@@ -1,9 +1,11 @@
 from pytube import YouTube, Stream
 
+
 def download(stream: Stream):
     print("Started download of the video")
     stream.download("downloads")
     print("Finished download of the video")
+
 
 def format_stream(stream):
     resolution_width = 12
@@ -12,9 +14,11 @@ def format_stream(stream):
     filesize_width = 10
 
     formatted_resolution = str(stream.resolution).ljust(resolution_width)
-    formatted_bitrate = (str(stream.bitrate // 1000) + " kbit/s").ljust(bitrate_width)
+    formatted_bitrate = (str(stream.bitrate // 1000) +
+                         " kbit/s").ljust(bitrate_width)
     formatted_audio_codec = str(stream.audio_codec).ljust(audio_codec_width)
-    formatted_filesize = (str(stream.filesize_mb) + " MB").ljust(filesize_width)
+    formatted_filesize = (str(stream.filesize_mb) +
+                          " MB").ljust(filesize_width)
 
     formatted_stream = f"{formatted_resolution} {formatted_bitrate} {formatted_audio_codec} {formatted_filesize}"
 
@@ -35,7 +39,7 @@ if __name__ == "__main__":
     print(youtube.title)
     print(f"Thumbnail Url: {youtube.thumbnail_url}")
 
-    streams = youtube.streams.all()
+    streams = youtube.streams
 
     print("If the text is magenta, the stream doesn't have audio")
     print("If the text is cyan, the stream doesn't have video")
@@ -46,7 +50,7 @@ if __name__ == "__main__":
         streamMessage = f"[{str(i).zfill(2)}]    {format_stream(stream)}"
 
         print(streamMessage)
-    
+
     print("Please select one of the streams")
 
     selection = int(input())
